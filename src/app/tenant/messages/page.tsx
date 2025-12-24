@@ -12,6 +12,7 @@ export default function TenantMessagesPage() {
     const [newMessage, setNewMessage] = useState('');
     const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({});
     const [loading, setLoading] = useState(true);
+    const [showContacts, setShowContacts] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Fetch Contacts
@@ -95,18 +96,23 @@ export default function TenantMessagesPage() {
     }
 
     return (
-        <div className="h-[calc(100vh-2rem)] flex bg-white rounded-2xl overflow-hidden shadow-sm border border-zinc-100 m-4">
+        <div className="h-[calc(100vh-2rem)] flex bg-white rounded-2xl overflow-hidden shadow-sm border border-zinc-100 m-2 sm:m-4">
             {/* Sidebar / Contact List */}
-            <div className="w-80 bg-zinc-50 border-r border-zinc-100 flex flex-col">
-                <div className="p-4 border-b border-zinc-100 font-bold text-lg flex items-center gap-2">
-                    <User size={20} className="text-zinc-400" />
-                    Contacts
+            <div className={`${showContacts ? 'flex' : 'hidden md:flex'} w-full md:w-80 bg-zinc-50 border-r border-zinc-100 flex-col`}>
+                <div className="p-4 border-b border-zinc-100 font-bold text-lg flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <User size={20} className="text-zinc-400" />
+                        Contacts
+                    </div>
                 </div>
                 <div className="flex-1 overflow-y-auto">
                     {contacts.map(contact => (
                         <div
                             key={contact.id}
-                            onClick={() => setActiveContact(contact)}
+                            onClick={() => {
+                                setActiveContact(contact);
+                                setShowContacts(false);
+                            }}
                             className={`p-4 cursor-pointer hover:bg-zinc-100 transition relative ${activeContact?.id === contact.id ? 'bg-white border-l-4 border-black shadow-sm' : ''}`}
                         >
                             <div className="flex justify-between items-start">
@@ -124,21 +130,29 @@ export default function TenantMessagesPage() {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 flex flex-col">
+            <div className={`${!showContacts ? 'flex' : 'hidden md:flex'} flex-1 flex-col h-full overflow-hidden`}>
                 {activeContact ? (
                     <>
                         {/* Header */}
-                        <div className="p-4 border-b border-zinc-100 bg-white flex justify-between items-center shadow-sm z-10">
-                            <div>
-                                <h2 className="font-bold text-lg">{activeContact.name}</h2>
-                                <p className="text-xs text-zinc-500 flex items-center gap-1">
-                                    <span className="w-2 h-2 bg-emerald-500 rounded-full"></span> Online
-                                </p>
+                        <div className="p-3 sm:p-4 border-b border-zinc-100 bg-white flex justify-between items-center shadow-sm z-10">
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => setShowContacts(true)}
+                                    className="md:hidden p-2 -ml-2 hover:bg-zinc-100 rounded-full transition"
+                                >
+                                    <Clock className="rotate-90 text-zinc-400" size={20} />
+                                </button>
+                                <div>
+                                    <h2 className="font-bold text-base sm:text-lg">{activeContact.name}</h2>
+                                    <p className="text-[10px] sm:text-xs text-zinc-500 flex items-center gap-1">
+                                        <span className="w-2 h-2 bg-emerald-500 rounded-full"></span> Online
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
                         {/* Messages List */}
-                        <div className="flex-1 overflow-y-auto p-6 bg-zinc-50/50 space-y-4">
+                        <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-zinc-50/50 space-y-4">
                             {messages.length === 0 && (
                                 <div className="text-center text-zinc-400 text-sm mt-12">
                                     Start a conversation with {activeContact.name}
@@ -149,7 +163,7 @@ export default function TenantMessagesPage() {
                                 return (
                                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                                         <div
-                                            className={`max-w-[70%] p-3 rounded-2xl text-sm shadow-sm relative group ${isMe
+                                            className={`max-w-[85%] sm:max-w-[70%] p-3 rounded-2xl text-sm shadow-sm relative group ${isMe
                                                 ? 'bg-zinc-900 text-white rounded-tr-none'
                                                 : 'bg-white border border-zinc-200 text-zinc-800 rounded-tl-none'
                                                 }`}
@@ -167,21 +181,13 @@ export default function TenantMessagesPage() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 bg-white border-t border-zinc-100">
-                            {/* Templates (Optional, can expand later) */}
-                            {user?.role === 'landlord' && (
-                                <div className="flex gap-2 mb-2 overflow-x-auto pb-2">
-                                    <button onClick={() => setNewMessage("Reminder: Rent is due on the 1st.")} className="text-xs px-3 py-1 bg-zinc-100 rounded-full hover:bg-zinc-200 whitespace-nowrap">Rent Reminder</button>
-                                    <button onClick={() => setNewMessage("Maintenance Notice: We will be inspecting...")} className="text-xs px-3 py-1 bg-zinc-100 rounded-full hover:bg-zinc-200 whitespace-nowrap">Maintenance</button>
-                                </div>
-                            )}
-
-                            <form onSubmit={handleSendMessage} className="flex items-end gap-2">
+                        <div className="p-1 px-2 sm:p-2 bg-white border-t border-zinc-100">
+                            <form onSubmit={handleSendMessage} className="flex items-center gap-2 max-w-4xl mx-auto h-[48px] sm:h-[56px]">
                                 <textarea
                                     value={newMessage}
                                     onChange={(e) => setNewMessage(e.target.value)}
                                     placeholder="Type a message..."
-                                    className="flex-1 p-3 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 resize-none h-12 min-h-[48px] max-h-32"
+                                    className="flex-1 p-2 bg-zinc-50 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 resize-none h-[34px] min-h-[34px] max-h-32 text-xs sm:text-sm outline-none transition-all"
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter' && !e.shiftKey) {
                                             e.preventDefault();
@@ -192,9 +198,9 @@ export default function TenantMessagesPage() {
                                 <button
                                     type="submit"
                                     disabled={!newMessage.trim()}
-                                    className="p-3 bg-zinc-900 text-white rounded-xl hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-9 h-9 flex items-center justify-center bg-zinc-900 text-white rounded-lg hover:bg-black transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                                 >
-                                    <Send size={20} />
+                                    <Send size={16} />
                                 </button>
                             </form>
                         </div>

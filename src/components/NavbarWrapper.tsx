@@ -5,11 +5,11 @@ import Navbar from './Navbar';
 
 export default function NavbarWrapper() {
     const pathname = usePathname();
+    const isAuthPage = pathname === '/login' || pathname === '/register';
     const isDashboard = pathname?.startsWith('/dashboard') ||
         pathname?.startsWith('/landlord') ||
         pathname?.startsWith('/tenant');
 
-    if (isDashboard) return null;
-
+    if (isDashboard || isAuthPage) return null;
     return <Navbar />;
 }

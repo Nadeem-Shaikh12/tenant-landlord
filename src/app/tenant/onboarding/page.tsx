@@ -132,9 +132,9 @@ export default function OnboardingPage() {
         <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-4">
             <div className="max-w-xl w-full bg-white rounded-3xl shadow-xl border border-zinc-100 overflow-hidden">
                 {/* Header */}
-                <div className="p-8 bg-zinc-900 text-white">
-                    <h1 className="text-2xl font-black tracking-tight">Setup Your Account</h1>
-                    <p className="text-zinc-400 mt-2">Complete these steps to access your rental dashboard.</p>
+                <div className="p-6 sm:p-8 bg-zinc-900 text-white">
+                    <h1 className="text-xl sm:text-2xl font-black tracking-tight">Setup Your Account</h1>
+                    <p className="text-zinc-400 mt-2 text-sm">Complete these steps to access your rental dashboard.</p>
 
                     {/* Progress Bar */}
                     <div className="flex items-center gap-2 mt-6">
@@ -144,7 +144,7 @@ export default function OnboardingPage() {
                     </div>
                 </div>
 
-                <div className="p-8">
+                <div className="p-6 sm:p-8">
                     {/* STEP 1: PERSONAL DETAILS */}
                     {step === 1 && (
                         <form onSubmit={handleProfileSubmit} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
@@ -164,7 +164,7 @@ export default function OnboardingPage() {
                                         placeholder="Enter your mobile number"
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold uppercase text-zinc-400 mb-1">City</label>
                                         <input
@@ -186,7 +186,7 @@ export default function OnboardingPage() {
                                         />
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold uppercase text-zinc-400 mb-1">Aadhaar Number</label>
                                         <input
@@ -205,7 +205,7 @@ export default function OnboardingPage() {
                                                 accept="image/*,.pdf"
                                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                             />
-                                            <div className="w-full p-4 bg-zinc-50 rounded-xl font-bold border-2 border-dashed border-zinc-200 text-zinc-400 text-sm flex items-center justify-center gap-2 hover:bg-white hover:border-indigo-500 hover:text-indigo-500 transition">
+                                            <div className="w-full p-4 bg-zinc-50 rounded-xl font-bold border-2 border-dashed border-zinc-200 text-zinc-400 text-sm flex items-center justify-center gap-2 hover:bg-white hover:border-indigo-500 hover:text-indigo-500 transition text-center px-2">
                                                 <Upload size={16} /> <span>Upload Document</span>
                                             </div>
                                         </div>

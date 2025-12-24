@@ -16,6 +16,8 @@ export interface User {
     email: string;
     passwordHash: string;
     role: 'landlord' | 'tenant';
+    mobile?: string;
+    aadhaar?: string;
     tenantProfile?: {
         mobile: string;
         city: string;
@@ -232,7 +234,10 @@ class DBAdapter {
 
     findRequestByTenantId(tenantId: string) {
         this.readDB();
-        return this.data.verificationRequests.find(r => r.tenantId === tenantId);
+        // Return the latest request (last in the array)
+        return [...this.data.verificationRequests]
+            .reverse()
+            .find(r => r.tenantId === tenantId);
     }
 
     findRequestById(id: string) {

@@ -11,7 +11,18 @@ export async function POST(req: Request) {
         const { name, email, password, role } = await req.json();
 
         if (!name || !email || !password || !role) {
-            return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+            return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+        }
+
+        // Backend Validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            return NextResponse.json({ error: 'Password does not meet security requirements' }, { status: 400 });
         }
 
         const existingUser = db.findUserByEmail(email);
@@ -27,7 +38,9 @@ export async function POST(req: Request) {
             name,
             email,
             passwordHash,
-            role
+            role,
+            mobile: '',
+            aadhaar: ''
         });
 
         // Create JWT
@@ -36,7 +49,15 @@ export async function POST(req: Request) {
             .setExpirationTime('24h')
             .sign(JWT_SECRET);
 
-        const response = NextResponse.json({ success: true, user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role } });
+        const response = NextResponse.json({
+            success: true,
+            user: {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+                role: newUser.role
+            }
+        });
 
         response.cookies.set({
             name: 'token',
@@ -49,6 +70,7 @@ export async function POST(req: Request) {
 
         return response;
     } catch (error) {
+        console.error('Registration Error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

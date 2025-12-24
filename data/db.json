@@ -1,198 +1,117 @@
 {
   "users": [
     {
-      "id": "1I8ma4adaZyhEFgbzEO3t",
+      "id": "5Avr1W0ZR0m2QeWaDbk_Q",
       "name": "Shaikh Nadeem",
       "email": "nadeemshaikh@gmail.com",
-      "passwordHash": "$2b$10$Wzl8UlmJAOSGedUK7iZoMOarh.XSRVpyh7P8Bi0VAHsCHAVo2oZFO",
-      "role": "landlord"
+      "passwordHash": "$2b$10$SZbB21gsGgt9nUsiJzooCep5jyPl9mFJ8LKyRnSBJldw4pxCObw7O",
+      "role": "landlord",
+      "mobile": "",
+      "aadhaar": ""
     },
     {
-      "id": "lMPmIw5ru1iAHMdwG_Eru",
-      "name": "Kshitij Pingale",
-      "email": "kshitijpingale@gmail.com",
-      "passwordHash": "$2b$10$YBJ3/Ek4Si2nOryb8XtDi.BIYVEy8hhOTK2FOPzSB.ja7cnC1O/eO",
+      "id": "DFyYxA2kLgLofNfNoMpS9",
+      "name": "Mahendra Dhoni ",
+      "email": "mahendradhoni@gmial.com",
+      "passwordHash": "$2b$10$eSQPc93R8lBsx8dt8TkYDuZkJ/mAP9ECCcxENq3TMO8cNew5wFeX6",
       "role": "tenant",
+      "mobile": "",
+      "aadhaar": "",
       "tenantProfile": {
-        "mobile": "1234567890",
+        "mobile": "987654321",
         "city": "Aurangabad",
         "state": "Maharashtra",
         "aadhaarNumber": "12345678901",
         "isProfileComplete": true,
         "paymentStatus": "PENDING"
       }
-    },
-    {
-      "id": "DfQif0kXHra2_1C3BkENk",
-      "name": "Nadeem Shaikh",
-      "email": "testlandlord@gmail.com",
-      "passwordHash": "$2b$10$awNxQY1fgyh7Qe5gOy8P7.rTlH6iw5Mx5MD1FTrnNltc9aeCTQZCa",
-      "role": "landlord"
-    },
-    {
-      "id": "x6Jz3tzBiChHfJyuHFkj4",
-      "name": "Test Tenant",
-      "email": "testtenant@gmail.com",
-      "passwordHash": "$2b$10$ykFU7CwQJIbRQqiHNG6xXudvRe7Q9cZyD9jVOfG/L/.fCMJJ5Fy3y",
-      "role": "tenant"
     }
   ],
   "verificationRequests": [
     {
-      "id": "R9-2w2n26MoPvJ5y1FVHd",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
-      "fullName": "Kshitij Pingale",
-      "mobile": "1234567890",
+      "id": "6b584cad-c9e0-4f03-81aa-1e9f6442d9e6",
+      "tenantId": "DFyYxA2kLgLofNfNoMpS9",
+      "fullName": "Mahendra Dhoni ",
+      "mobile": "987654321",
       "idProofType": "Aadhaar",
       "idProofNumber": "12345678901",
       "city": "Aurangabad",
-      "landlordId": "1I8ma4adaZyhEFgbzEO3t",
-      "propertyId": "93ay9w9ks",
+      "landlordId": "5Avr1W0ZR0m2QeWaDbk_Q",
+      "propertyId": "031q3kvji",
       "status": "approved",
       "paymentStatus": "paid",
       "paymentAmount": 116.82,
-      "transactionId": "TXN_SKC4JSKRS",
-      "submittedAt": "2025-12-21T18:18:46.958Z",
-      "updatedAt": "2025-12-21T18:18:53.538Z",
-      "verifiedAt": "2025-12-21T18:18:53.538Z"
+      "transactionId": "TXN_59CTI3ORG",
+      "submittedAt": "2025-12-24T09:29:41.922Z",
+      "updatedAt": "2025-12-24T09:30:06.777Z",
+      "verifiedAt": "2025-12-24T09:30:06.777Z"
     }
   ],
   "tenantStays": [
     {
-      "id": "qXyGSvoLlJ9hudF6X_AVj",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
-      "landlordId": "1I8ma4adaZyhEFgbzEO3t",
-      "propertyId": "93ay9w9ks",
-      "joinDate": "2025-12-21T18:18:53.546Z",
-      "status": "ACTIVE"
+      "id": "fdba713b-7f94-4e77-862e-32b24c75bff7",
+      "tenantId": "DFyYxA2kLgLofNfNoMpS9",
+      "landlordId": "5Avr1W0ZR0m2QeWaDbk_Q",
+      "propertyId": "031q3kvji",
+      "joinDate": "2025-12-24T09:30:06.789Z",
+      "status": "MOVED_OUT",
+      "moveOutDate": "2025-12-24T11:33:42.971Z"
     }
   ],
   "history": [
     {
-      "id": "GcdT40Nm0wN4u2FhcKL-e",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
+      "id": "18f45b88-dec8-448c-931d-d696bc825052",
+      "tenantId": "DFyYxA2kLgLofNfNoMpS9",
       "type": "JOINED",
       "description": "Tenant verified and joined the property.",
-      "date": "2025-12-21T18:18:53.544Z",
-      "createdBy": "1I8ma4adaZyhEFgbzEO3t"
+      "date": "2025-12-24T09:30:06.784Z",
+      "createdBy": "5Avr1W0ZR0m2QeWaDbk_Q"
     },
     {
-      "id": "ayxzlgich",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
-      "type": "PAYMENT",
-      "date": "2025-12-21T19:11:40.247Z",
-      "description": "Paid WATER bill",
-      "amount": 2000,
-      "createdBy": "lMPmIw5ru1iAHMdwG_Eru"
-    },
-    {
-      "id": "jvL7fCQi74OEFnKHjj7Xu",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
-      "type": "PAYMENT",
-      "description": "Paid WATER bill of 2000",
-      "amount": 2000,
-      "date": "2025-12-21T19:11:40.249Z",
-      "createdBy": "lMPmIw5ru1iAHMdwG_Eru"
+      "id": "eqytm88o5",
+      "tenantId": "DFyYxA2kLgLofNfNoMpS9",
+      "type": "MOVE_OUT",
+      "description": "Resident moved out from N.N.SHAIKH. Stay finalized.",
+      "date": "2025-12-24T11:33:42.976Z",
+      "createdBy": "5Avr1W0ZR0m2QeWaDbk_Q"
     }
   ],
   "notifications": [
     {
-      "id": "Q52TKvVLqKHT1nWBtfjOJ",
-      "userId": "lMPmIw5ru1iAHMdwG_Eru",
+      "id": "26618e06-d128-415f-ae41-4e1ae3fa4ea8",
+      "userId": "DFyYxA2kLgLofNfNoMpS9",
       "role": "tenant",
       "title": "Application Approved!",
       "message": "Your verification request has been approved by the landlord. Welcome home!",
       "type": "REMARK_ADDED",
       "isRead": false,
-      "createdAt": "2025-12-21T18:18:53.550Z"
+      "createdAt": "2025-12-24T09:30:06.806Z"
     },
     {
-      "id": "5ae08880-4b43-426e-a263-983a30424387",
-      "userId": "lMPmIw5ru1iAHMdwG_Eru",
-      "type": "REMARK_ADDED",
-      "title": "New Message",
-      "message": "You received a new message from Shaikh Nadeem",
+      "id": "gpidr5yw8",
+      "userId": "DFyYxA2kLgLofNfNoMpS9",
       "role": "tenant",
-      "createdAt": "2025-12-21T18:41:27.131Z",
-      "isRead": false
-    },
-    {
-      "id": "4085e6da-62b6-4965-aa93-f2e56901ada7",
-      "userId": "1I8ma4adaZyhEFgbzEO3t",
+      "title": "Stay Terminated",
+      "message": "Your stay has been finalized by the landlord. Thank you for using our platform.",
       "type": "REMARK_ADDED",
-      "title": "New Message",
-      "message": "You received a new message from Kshitij Pingale",
-      "role": "landlord",
-      "createdAt": "2025-12-21T18:59:08.253Z",
-      "isRead": false
-    },
-    {
-      "id": "80d11904-e1ed-46b5-9edc-4fd4fe06d186",
-      "userId": "lMPmIw5ru1iAHMdwG_Eru",
-      "role": "tenant",
-      "title": "New Bill Received",
-      "message": "You have a new bill for WATER ($2000) due on 12/22/2025.",
-      "type": "NEW_BILL_CYCLE",
       "isRead": false,
-      "createdAt": "2025-12-21T19:11:21.222Z"
-    },
-    {
-      "id": "GtnHFQTL9Z-qRQKLaIeHC",
-      "userId": "1I8ma4adaZyhEFgbzEO3t",
-      "role": "landlord",
-      "title": "Payment Received",
-      "message": "Tenant has paid WATER bill of $2000.",
-      "type": "PAYMENT_RECEIVED",
-      "isRead": false,
-      "createdAt": "2025-12-21T19:11:40.251Z"
+      "createdAt": "2025-12-24T11:33:42.973Z"
     }
   ],
   "properties": [
     {
-      "id": "93ay9w9ks",
-      "landlordId": "1I8ma4adaZyhEFgbzEO3t",
+      "id": "031q3kvji",
+      "landlordId": "5Avr1W0ZR0m2QeWaDbk_Q",
       "name": "N.N.SHAIKH",
       "address": "Aurangabad",
       "units": 50,
-      "occupiedUnits": 0,
+      "occupiedUnits": 1,
       "type": "Apartment",
       "monthlyRent": 2500,
-      "createdAt": "2025-12-21T18:12:32.163Z"
+      "createdAt": "2025-12-24T09:23:53.473Z"
     }
   ],
-  "bills": [
-    {
-      "id": "c7cf207b-a437-4c5e-9d92-487875839b6a",
-      "landlordId": "1I8ma4adaZyhEFgbzEO3t",
-      "tenantId": "lMPmIw5ru1iAHMdwG_Eru",
-      "stayId": "qXyGSvoLlJ9hudF6X_AVj",
-      "amount": 2000,
-      "type": "WATER",
-      "month": "Jan",
-      "dueDate": "2025-12-22",
-      "status": "PAID",
-      "paidAt": "2025-12-21T19:11:40.245Z"
-    }
-  ],
+  "bills": [],
   "documents": [],
-  "messages": [
-    {
-      "id": "ad19c1b1-8dc6-4706-b4e2-65df89cd6883",
-      "senderId": "1I8ma4adaZyhEFgbzEO3t",
-      "receiverId": "lMPmIw5ru1iAHMdwG_Eru",
-      "content": "Notice: We have scheduled maintenance for the property.",
-      "timestamp": "2025-12-21T18:41:27.128Z",
-      "isRead": true,
-      "type": "text"
-    },
-    {
-      "id": "319fde40-cf5b-4688-9698-47626ac6bbcf",
-      "senderId": "lMPmIw5ru1iAHMdwG_Eru",
-      "receiverId": "1I8ma4adaZyhEFgbzEO3t",
-      "content": "hello",
-      "timestamp": "2025-12-21T18:59:08.252Z",
-      "isRead": true,
-      "type": "text"
-    }
-  ]
+  "messages": []
 }

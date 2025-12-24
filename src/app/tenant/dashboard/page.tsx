@@ -18,7 +18,8 @@ import {
     Calendar,
     ChevronRight,
     Sparkles,
-    Settings
+    Settings,
+    X
 } from 'lucide-react';
 import Link from 'next/link';
 import Chatbot from '@/components/dashboard/Chatbot';
@@ -143,6 +144,31 @@ export default function TenantDashboard() {
             );
         }
 
+        if (pendingRequest && pendingRequest.status === 'rejected') {
+            return (
+                <div className="min-h-screen bg-slate-50 p-6 flex items-center justify-center">
+                    <div className="w-full max-w-xl bg-white p-12 rounded-[3rem] shadow-2xl shadow-slate-200/50 border border-slate-100 text-center relative overflow-hidden group">
+                        <div className="h-24 w-24 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                            <X size={48} strokeWidth={1.5} />
+                        </div>
+                        <h1 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Application Status</h1>
+                        <p className="text-slate-500 text-lg mb-6 leading-relaxed font-bold">
+                            Your application for <span className="text-red-600 font-black">{pendingRequest.landlordName || 'the property'}</span> was not approved.
+                        </p>
+                        {pendingRequest.remarks && (
+                            <div className="bg-red-50 text-red-700 p-4 rounded-2xl text-sm font-bold mb-10 border border-red-100">
+                                Reason: {pendingRequest.remarks}
+                            </div>
+                        )}
+                        <Link href="/tenant/onboarding" className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition-all">
+                            Try Another Property <ArrowUpRight size={18} />
+                        </Link>
+                    </div>
+                    <Chatbot />
+                </div>
+            );
+        }
+
         return (
             <div className="min-h-screen p-6 flex flex-col items-center justify-center text-center">
                 <div className="mb-12 relative">
@@ -209,9 +235,9 @@ export default function TenantDashboard() {
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-                    {/* Left & Middle Column (Grid spanning 3 columns) */}
-                    <div className="xl:col-span-3 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+                    {/* Left & Middle Column (Grid spanning 3 columns on XL) */}
+                    <div className="md:col-span-2 xl:col-span-3 space-y-8">
                         {/* Main Interaction Cards */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -296,10 +322,10 @@ export default function TenantDashboard() {
                         </div>
 
                         {/* Middle Section: Action Center & Billing */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                             {/* Action Center */}
-                            <div className="bg-white rounded-[3rem] p-8 border border-slate-200 shadow-xl shadow-slate-200/60">
-                                <h3 className="text-xl font-black text-slate-900 mb-8 flex items-center gap-2">
+                            <div className="bg-white rounded-[2.5rem] lg:rounded-[3rem] p-6 lg:p-8 border border-slate-200 shadow-xl shadow-slate-200/60 flex flex-col h-full">
+                                <h3 className="text-lg lg:text-xl font-black text-slate-900 mb-6 lg:mb-8 flex items-center gap-2">
                                     <Sparkles size={20} className="text-blue-500" /> Core Services
                                 </h3>
                                 <div className="grid grid-cols-2 gap-4">
@@ -335,9 +361,9 @@ export default function TenantDashboard() {
                             </div>
 
                             {/* Detailed Billing Ledger */}
-                            <div className="bg-white rounded-[3rem] p-8 border border-slate-200 shadow-xl shadow-slate-200/60 flex flex-col">
-                                <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl font-black text-slate-900">Ledger Insights</h3>
+                            <div className="bg-white rounded-[2.5rem] lg:rounded-[3rem] p-6 lg:p-8 border border-slate-200 shadow-xl shadow-slate-200/60 flex flex-col h-full">
+                                <div className="flex items-center justify-between mb-6 lg:mb-8">
+                                    <h3 className="text-lg lg:text-xl font-black text-slate-900">Ledger Insights</h3>
                                     <Link href="/tenant/dashboard/history" className="text-[10px] font-black uppercase text-blue-600 tracking-widest hover:underline flex items-center gap-1">
                                         Full Log <ChevronRight size={14} />
                                     </Link>
@@ -378,20 +404,29 @@ export default function TenantDashboard() {
                     </div>
 
                     {/* Right Column: High-End Stats Card */}
-                    <div className="space-y-8">
+                    <div className="md:col-span-2 xl:col-span-1 space-y-6 lg:gap-8">
                         {/* Status Sphere Card */}
-                        <div className="bg-white p-10 rounded-[4rem] border border-slate-200 shadow-xl shadow-slate-200/60 text-center relative overflow-hidden group">
+                        <div className="bg-white p-8 lg:p-10 rounded-[2.5rem] lg:rounded-[4rem] border border-slate-200 shadow-xl shadow-slate-200/60 text-center relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent"></div>
                             <div className="relative z-10">
-                                <p className="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] mb-10">Verification Tier</p>
+                                <p className="text-[10px] font-black uppercase text-slate-400 tracking-[0.3em] mb-6 lg:mb-10">Verification Tier</p>
 
-                                <div className="relative inline-flex items-center justify-center p-8 mb-8">
+                                <div className="relative inline-flex items-center justify-center p-6 lg:p-8 mb-4 lg:mb-8">
                                     {/* SVG Progress Ring */}
-                                    <svg className="w-48 h-48 -rotate-90">
-                                        <circle cx="96" cy="96" r="88" className="stroke-slate-100 fill-none" strokeWidth="12" />
+                                    <svg className="w-40 h-40 lg:w-48 lg:h-48 -rotate-90">
+                                        <circle cx="80" cy="80" r="72" className="stroke-slate-100 fill-none lg:hidden" strokeWidth="10" />
+                                        <circle cx="96" cy="96" r="88" className="stroke-slate-100 fill-none hidden lg:block" strokeWidth="12" />
+                                        <circle
+                                            cx="80" cy="80" r="72"
+                                            className="stroke-blue-600 fill-none transition-all duration-1000 lg:hidden"
+                                            strokeWidth="10"
+                                            strokeDasharray={2 * Math.PI * 72}
+                                            strokeDashoffset={2 * Math.PI * 72 * (1 - (stay.trustScore || 85) / 100)}
+                                            strokeLinecap="round"
+                                        />
                                         <circle
                                             cx="96" cy="96" r="88"
-                                            className="stroke-blue-600 fill-none transition-all duration-1000"
+                                            className="stroke-blue-600 fill-none transition-all duration-1000 hidden lg:block"
                                             strokeWidth="12"
                                             strokeDasharray={2 * Math.PI * 88}
                                             strokeDashoffset={2 * Math.PI * 88 * (1 - (stay.trustScore || 85) / 100)}
@@ -399,7 +434,7 @@ export default function TenantDashboard() {
                                         />
                                     </svg>
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-6xl font-black tracking-tighter text-zinc-900">{stay.trustScore || 85}</span>
+                                        <span className="text-5xl lg:text-6xl font-black tracking-tighter text-zinc-900">{stay.trustScore || 85}</span>
                                         <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mt-1">Trust Score</span>
                                     </div>
                                 </div>

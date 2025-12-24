@@ -2,38 +2,44 @@
 
 :root {
   --background: #f1f5f9;
-  /* Slate-100 - Better for content separation */
+  /* Slate-100 */
   --foreground: #0f172a;
   /* Slate-900 */
-  --primary: #2563eb;
-  /* Blue-600 */
-  --primary-hover: #1e40af;
-  /* Blue-800 */
+  --primary: #4f46e5;
+  /* Indigo-600 - More premium than standard blue */
+  --primary-hover: #4338ca;
+  /* Indigo-700 */
+  --secondary: #64748b;
+  /* Slate-500 */
   --success: #10b981;
   /* Emerald-500 */
-  --success-hover: #059669;
-  /* Emerald-600 */
   --surface: #ffffff;
-  /* Pure White for cards */
+  /* Pure White */
+  --surface-highlight: #f8fafc;
+  /* Slate-50 */
   --border: #e2e8f0;
   /* Slate-200 */
 }
 
-@theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-success: var(--success);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    /* Keeping white theme even in dark preference as per user request */
-    --foreground: #0f172a;
+    --background: #09090b;
+    /* Zinc-950 */
+    --foreground: #f8fafc;
+    /* Slate-50 */
+    --surface: #18181b;
+    /* Zinc-900 */
+    --surface-highlight: #27272a;
+    /* Zinc-800 */
+    --border: #27272a;
+    /* Zinc-800 */
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -42,12 +48,26 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Custom Professional Scrollbar */
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(24, 24, 27, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Professional Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -56,8 +76,11 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  /* slate-300 */
-  border-radius: 10px;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
 }
 
 ::-webkit-scrollbar-thumb:hover {

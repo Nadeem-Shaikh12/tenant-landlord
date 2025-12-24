@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
 import {
     BarChart3,
@@ -22,6 +23,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function LandlordDashboard() {
     const { user, isLoading } = useAuth();
+
     const [stats, setStats] = useState({
         totalProperties: 0,
         activeTenants: 0,
@@ -34,6 +36,7 @@ export default function LandlordDashboard() {
     const [properties, setProperties] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const router = useRouter();
 
     const filteredProperties = useMemo(() => {
         return properties.filter(p =>
@@ -57,6 +60,7 @@ export default function LandlordDashboard() {
     }, [user, isLoading]);
 
     const fetchDashboardData = async () => {
+
         try {
             const [propsRes, tenantsRes, requestsRes, analyticsRes] = await Promise.all([
                 fetch(`/api/landlord/properties?landlordId=${user?.id}`),
@@ -110,6 +114,16 @@ export default function LandlordDashboard() {
         }
     };
 
+
+
+    if (!isLoading && !user) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-white">
+                <p className="text-zinc-500 font-bold animate-pulse">Redirecting to login...</p>
+            </div>
+        );
+    }
+
     if (isLoading || (loading && !stats.totalProperties)) return (
         <div className="min-h-[80vh] flex flex-col items-center justify-center gap-4">
             <div className="h-12 w-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
@@ -127,19 +141,19 @@ export default function LandlordDashboard() {
     return (
         <div className="p-8 space-y-10 max-w-7xl mx-auto">
             {/* Top Bar / Search */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-3">
+                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-3">
                         {greeting()}, {user?.name.split(' ')[0]} <span className="animate-bounce">👋</span>
                     </h1>
-                    <p className="text-zinc-500 mt-1 font-medium italic">Everything looks great today. You have {stats.pendingRequests} actions pending.</p>
+                    <p className="text-zinc-500 mt-1 text-sm sm:text-base font-medium italic">Everything looks great today. You have {stats.pendingRequests} actions pending.</p>
                 </div>
-                <div className="relative group">
+                <div className="relative group w-full sm:w-auto">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition" size={18} />
                     <input
                         type="text"
                         placeholder="Search tenants, properties..."
-                        className="bg-white border-slate-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10 border p-3 pl-12 rounded-2xl w-full md:w-80 outline-none transition-all font-bold text-sm text-slate-900 shadow-sm"
+                        className="bg-white border-slate-200 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10 border p-3 pl-12 rounded-2xl w-full sm:w-80 outline-none transition-all font-bold text-sm text-slate-900 shadow-sm"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -180,9 +194,9 @@ export default function LandlordDashboard() {
                 />
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
                 {/* Main Content Area */}
-                <div className="xl:col-span-2 space-y-10">
+                <div className="lg:col-span-2 space-y-10">
                     {/* Portfolio Preview */}
                     <section>
                         <div className="flex items-center justify-between mb-6">
