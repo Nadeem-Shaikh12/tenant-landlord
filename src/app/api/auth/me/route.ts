@@ -19,11 +19,19 @@ export async function GET() {
         const user = db.findUserById(userId);
 
         if (!user) {
-            return NextResponse.json({ user: null });
+            const response = NextResponse.json({ user: null });
+            response.cookies.delete('token');
+            return response;
         }
 
         return NextResponse.json({
-            user: { id: user.id, name: user.name, email: user.email, role: user.role }
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                tenantProfile: user.tenantProfile
+            }
         });
     } catch (error) {
         return NextResponse.json({ user: null });

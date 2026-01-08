@@ -1,67 +1,76 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
+import { db } from '@/lib/db';
 
-const dbPath = path.join(process.cwd(), 'data', 'db.json');
+export async function GET(req: Request) {
+    // Optional: Add filtering query params if needed
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get('userId'); // "Get reviews FOR this user"
 
-// Helper to read DB
-function readDb() {
-    if (!fs.existsSync(dbPath)) {
-        return { reviews: [] };
-    }
-    const fileDetails = fs.readFileSync(dbPath, 'utf8');
-    return JSON.parse(fileDetails);
-}
-
-// Helper to write DB
-function writeDb(data: any) {
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-}
-
-export async function GET() {
-    try {
-        const db = readDb();
-        const reviews = db.reviews || [];
+    if (userId) {
+        const reviews = db.getReviews(userId);
         return NextResponse.json(reviews);
-    } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch reviews' }, { status: 500 });
     }
+
+    // Fallback: return empty or all reviews (be careful with all)
+    return NextResponse.json([]);
 }
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
     try {
-        const body = await request.json();
-        const { name, rating, comment, userId } = body;
+        const body = await req.json();
+        // Support both old "Testimonial" style and new "Transactional" style
+        // Transactional: reviewerId, revieweeId, stayId, rating, comment
+        // Testimonial (legacy/existing): name, rating, comment, userId (as reviewer)
 
-        if (!name || !rating || !comment || !userId) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        let reviewData: any;
+
+        if (body.stayId && body.revieweeId) {
+            // Transactional Rating (Landlord -> Tenant or vice versa)
+            reviewData = {
+                id: Math.random().toString(36).substr(2, 9),
+                reviewerId: body.reviewerId,
+                revieweeId: body.revieweeId,
+                rating: body.rating,
+                comment: body.comment,
+                stayId: body.stayId,
+                createdAt: new Date().toISOString()
+            };
+        } else {
+            // Legacy/Testimonial support
+            // Map 'userId' to 'reviewerId' and maybe 'revieweeId' to 'PLATFORM' or null?
+            // For now, let's just save it.
+            reviewData = {
+                id: Math.random().toString(36).substr(2, 9),
+                reviewerId: body.userId,
+                revieweeId: 'PLATFORM', // Placeholder
+                rating: Number(body.rating),
+                comment: body.comment,
+                stayId: 'GENERAL',
+                createdAt: new Date().toISOString()
+            };
         }
 
-        const db = readDb();
-        if (db.reviews && db.reviews.some((r: any) => r.userId === userId)) {
-            return NextResponse.json({ error: 'You have already submitted a review.' }, { status: 409 });
+        const review = db.addReview(reviewData);
+
+        // If it's a transactional review, notify the reviewee
+        if (body.revieweeId) {
+            db.addNotification({
+                id: Math.random().toString(36).substr(2, 9),
+                userId: body.revieweeId,
+                role: 'tenant', // This technically depends on who the reviewee is. 
+                // Ideally pass 'revieweeRole' or look up user.
+                // For MVP "End Stay", reviewee is Tenant.
+                title: 'New Rating Received',
+                message: `You received a ${body.rating}-star rating.`,
+                type: 'REMARK_ADDED',
+                isRead: false,
+                createdAt: new Date().toISOString()
+            });
         }
 
-        const newReview = {
-            id: uuidv4(),
-            userId,
-            name,
-            rating: Number(rating),
-            comment,
-            date: new Date().toISOString(),
-            verified: false,
-        };
-
-        if (!db.reviews) {
-            db.reviews = [];
-        }
-
-        db.reviews.unshift(newReview); // Add to top
-        writeDb(db);
-
-        return NextResponse.json(newReview, { status: 201 });
+        return NextResponse.json({ review }, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to save review' }, { status: 500 });
+        console.error('Review create error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

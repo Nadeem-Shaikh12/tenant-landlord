@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, UserCheck, Zap, Star, TrendingUp, Users, Building2, CheckCircle2, HelpCircle, Mail, Play, Smartphone, Clock, Linkedin, Instagram, Twitter } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 const ReviewsSection = dynamic(() => import('@/components/ReviewsSection'), { ssr: false });
@@ -11,6 +12,7 @@ const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
 export default function Home() {
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -64,19 +66,19 @@ export default function Home() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
               </span>
               <span className="text-sm font-medium text-zinc-600 dark:text-zinc-300">
-                Trusted by 10,000+ Landlords
+                {t('hero.trusted')}
               </span>
             </motion.div>
 
             <motion.h1 variants={heroItemVariants} className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1]">
-              Prop<span className="text-indigo-600">Accura</span>
+              {t('hero.titlePrefix')}<span className="text-indigo-600">{t('hero.titleSuffix')}</span>
               <span className="block mt-4 text-2xl sm:text-4xl lg:text-5xl text-zinc-700 dark:text-zinc-300 font-bold">
-                Smart Rental & Tenant Management for Every Homeowner and Renter
+                {t('hero.subtitle')}
               </span>
             </motion.h1>
 
             <motion.p variants={heroItemVariants} className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-              Manage properties, verify tenants, track rent & bills, and stay organized — all in one secure platform.
+              {t('hero.description')}
             </motion.p>
 
             <motion.div variants={heroItemVariants} className="flex flex-col sm:flex-row justify-center gap-4">
@@ -84,10 +86,10 @@ export default function Home() {
                 href={user ? `/${user.role}/dashboard` : "/register"}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-indigo-700 transition-all hover:scale-105 shadow-lg shadow-indigo-500/25 active:scale-95"
               >
-                Get Started <ArrowRight size={20} />
+                {t('hero.getStarted')} <ArrowRight size={20} />
               </Link>
               <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 px-8 py-4 rounded-xl text-base sm:text-lg font-semibold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all hover:scale-105 active:scale-95">
-                <Play size={18} /> Learn How It Works
+                <Play size={18} /> {t('hero.learnMore')}
               </button>
             </motion.div>
           </motion.div>
@@ -156,18 +158,18 @@ export default function Home() {
               className="space-y-6"
             >
               <div className="inline-block px-4 py-1.5 rounded-full bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-semibold text-sm">
-                The Problem
+                {t('about.problemTag')}
               </div>
-              <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">Property management is chaotic.</h2>
+              <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">{t('about.problemTitle')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-lg text-zinc-600 dark:text-zinc-400">
-                  <span className="text-red-500">✕</span> Landlords lose track of rent payments
+                  <span className="text-red-500">✕</span> {t('about.problem1')}
                 </li>
                 <li className="flex items-center gap-3 text-lg text-zinc-600 dark:text-zinc-400">
-                  <span className="text-red-500">✕</span> Tenants confused about bills & due dates
+                  <span className="text-red-500">✕</span> {t('about.problem2')}
                 </li>
                 <li className="flex items-center gap-3 text-lg text-zinc-600 dark:text-zinc-400">
-                  <span className="text-red-500">✕</span> Messy paperwork and identity verification
+                  <span className="text-red-500">✕</span> {t('about.problem3')}
                 </li>
               </ul>
             </motion.div>
@@ -179,18 +181,18 @@ export default function Home() {
               className="space-y-6 p-8 rounded-3xl bg-indigo-50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30"
             >
               <div className="inline-block px-4 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
-                The PropAccura Solution
+                {t('about.solutionTag')}
               </div>
-              <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">We make it simple.</h2>
+              <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">{t('about.solutionTitle')}</h2>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3 text-lg text-zinc-700 dark:text-zinc-300">
-                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> We track every payment automatically
+                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> {t('about.solution1')}
                 </li>
                 <li className="flex items-center gap-3 text-lg text-zinc-700 dark:text-zinc-300">
-                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> Clear dashboards for bills & history
+                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> {t('about.solution2')}
                 </li>
                 <li className="flex items-center gap-3 text-lg text-zinc-700 dark:text-zinc-300">
-                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> Digital Application & ID Verification
+                  <CheckCircle2 className="text-emerald-500 h-6 w-6" /> {t('about.solution3')}
                 </li>
               </ul>
             </motion.div>
@@ -209,10 +211,10 @@ export default function Home() {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white mb-4">
-              What PropAccura Does
+              {t('features.title')}
             </h2>
             <p className="text-lg text-zinc-600 dark:text-zinc-400">
-              Powerful tools designed to streamline your workflow and boost efficiency.
+              {t('features.subtitle')}
             </p>
           </motion.div>
 
@@ -230,16 +232,10 @@ export default function Home() {
                 <div className="p-3 bg-indigo-600 rounded-xl text-white shadow-lg shadow-indigo-600/20">
                   <Building2 className="h-6 w-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">For Landlords</h3>
+                <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">{t('features.landlords.title')}</h3>
               </div>
               <ul className="space-y-4">
-                {[
-                  "Manage all your property information in one place",
-                  "See occupied & vacant status",
-                  "Track rent, pending bills, and financial summaries",
-                  "Approve or reject tenant applications",
-                  "See tenant history & digital verification reports"
-                ].map((item, i) => (
+                {(t('features.landlords.items') as string[]).map((item, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -10 }}
@@ -268,16 +264,10 @@ export default function Home() {
                 <div className="p-3 bg-zinc-800 dark:bg-zinc-700 rounded-xl text-white shadow-lg">
                   <UserCheck className="h-6 w-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">For Tenants</h3>
+                <h3 className="text-2xl font-bold text-zinc-900 dark:text-white">{t('features.tenants.title')}</h3>
               </div>
               <ul className="space-y-4">
-                {[
-                  "Securely register with basic details",
-                  "Choose your landlord from the list",
-                  "Submit ID details & payment history",
-                  "Check your rent & utility bill status",
-                  "View your stay timeline & trust score"
-                ].map((item, i) => (
+                {(t('features.tenants.items') as string[]).map((item, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: 10 }}
@@ -305,7 +295,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl font-bold text-center mb-16 text-zinc-900 dark:text-white"
           >
-            How it works in 3 simple steps
+            {t('howItWorks.title')}
           </motion.h2>
           <motion.div
             variants={staggerContainer}
@@ -314,9 +304,9 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             className="grid md:grid-cols-3 gap-8"
           >
-            <StepCard number="1" title="Register" description="Sign up as a Tenant or Landlord in seconds." />
-            <StepCard number="2" title="Connect" description="Tenants find landlords, submit details, and get verified." />
-            <StepCard number="3" title="Manage" description="Track rent, bills, and stay history from your dashboard." />
+            <StepCard number="1" title={t('howItWorks.step1.title')} description={t('howItWorks.step1.desc')} />
+            <StepCard number="2" title={t('howItWorks.step2.title')} description={t('howItWorks.step2.desc')} />
+            <StepCard number="3" title={t('howItWorks.step3.title')} description={t('howItWorks.step3.desc')} />
           </motion.div>
         </div>
       </section>
@@ -330,7 +320,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl font-bold text-center mb-16 text-zinc-900 dark:text-white"
           >
-            Trusted by people like you
+            {t('testimonials.title')}
           </motion.h2>
           <motion.div
             variants={staggerContainer}
@@ -340,18 +330,18 @@ export default function Home() {
             className="grid md:grid-cols-2 gap-8"
           >
             <TestimonialCard
-              quote="PropAccura made tracking rent so simple! I used to use spreadsheets, but this is a game changer."
-              author="Sarah Jenkins"
-              role="Landlord, 5 Properties"
+              quote={t('testimonials.card1.quote')}
+              author={t('testimonials.card1.author')}
+              role={t('testimonials.card1.role')}
             />
             <TestimonialCard
-              quote="Even my parents can manage properties now. It's so intuitive and the tenant verification is a lifesaver."
-              author="Michael Chen"
-              role="Property Manager"
+              quote={t('testimonials.card2.quote')}
+              author={t('testimonials.card2.author')}
+              role={t('testimonials.card2.role')}
             />
           </motion.div>
         </div>
-      </section>
+      </section >
 
       {/* 4b. Reviews Section */}
       <motion.div
@@ -372,7 +362,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl font-bold text-center mb-12 text-zinc-900 dark:text-white"
           >
-            Frequently Asked Questions
+            {t('faq.title')}
           </motion.h2>
           <motion.div
             variants={staggerContainer}
@@ -382,16 +372,16 @@ export default function Home() {
             className="space-y-4"
           >
             <FAQItem
-              question="How do tenants choose a landlord?"
-              answer="Tenants can search for registered landlords within the app and send a connection request to start their rental journey."
+              question={t('faq.q1')}
+              answer={t('faq.a1')}
             />
             <FAQItem
-              question="Is my data secure?"
-              answer="Yes, we use bank-level encryption and secure role-based access control to ensure your personal and financial data is protected."
+              question={t('faq.q2')}
+              answer={t('faq.a2')}
             />
             <FAQItem
-              question="What happens after I register?"
-              answer="You'll be taken to your dedicated dashboard where you can immediately start adding properties (as a landlord) or applying to stays (as a tenant)."
+              question={t('faq.q3')}
+              answer={t('faq.a3')}
             />
           </motion.div>
         </div>
@@ -408,9 +398,9 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <h2 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">Get in Touch</h2>
+            <h2 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">{t('contact.title')}</h2>
             <p className="text-lg text-zinc-600 dark:text-zinc-400">
-              Have questions? We're here to help. Send us a message and we'll respond within 24 hours.
+              {t('contact.subtitle')}
             </p>
           </motion.div>
 
@@ -510,11 +500,11 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Footer */}
       <Footer />
-    </div>
+    </div >
   );
 }
 

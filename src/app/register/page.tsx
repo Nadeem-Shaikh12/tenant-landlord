@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import { useAuth, Role } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Building2, ArrowRight } from 'lucide-react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function RegisterPage() {
     const { register } = useAuth();
+    const { t } = useLanguage();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -50,7 +53,10 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex bg-white dark:bg-black">
+        <div className="min-h-screen flex bg-white dark:bg-black relative">
+            <div className="absolute top-4 right-4 z-50">
+                <LanguageSwitcher />
+            </div>
             {/* Left Side - Visual */}
             <div className="hidden lg:flex w-1/2 bg-indigo-600 relative overflow-hidden items-center justify-center p-12 text-white">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
@@ -69,7 +75,7 @@ export default function RegisterPage() {
                         transition={{ delay: 0.3 }}
                         className="text-5xl font-bold tracking-tight"
                     >
-                        Start your journey with PropAccura.
+                        {t('signupPage.visualTitle')}
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -77,7 +83,7 @@ export default function RegisterPage() {
                         transition={{ delay: 0.4 }}
                         className="text-indigo-100 text-lg leading-relaxed"
                     >
-                        Create an account today to streamline your rental experience, whether you're managing properties or finding your next home.
+                        {t('signupPage.visualDesc')}
                     </motion.p>
                 </div>
             </div>
@@ -90,34 +96,34 @@ export default function RegisterPage() {
                     className="w-full max-w-sm space-y-6 my-8"
                 >
                     <div className="space-y-2 text-center lg:text-left">
-                        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">Create an account</h2>
-                        <p className="text-zinc-500 dark:text-zinc-400">Enter your details to get started</p>
+                        <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white">{t('signupPage.title')}</h2>
+                        <p className="text-zinc-500 dark:text-zinc-400">{t('signupPage.subtitle')}</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-zinc-900 dark:text-zinc-200">I am a</label>
+                            <label className="text-sm font-medium text-zinc-900 dark:text-zinc-200">{t('signupPage.roleLabel')}</label>
                             <div className="grid grid-cols-2 gap-2 p-1 bg-zinc-100 dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800">
                                 <button
                                     type="button"
                                     onClick={() => setRole('tenant')}
                                     className={`py-2 text-sm font-semibold rounded-lg transition-all ${role === 'tenant' ? 'bg-white dark:bg-zinc-800 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
                                 >
-                                    Tenant
+                                    {t('signupPage.roles.tenant')}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setRole('landlord')}
                                     className={`py-2 text-sm font-semibold rounded-lg transition-all ${role === 'landlord' ? 'bg-white dark:bg-zinc-800 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
                                 >
-                                    Landlord
+                                    {t('signupPage.roles.landlord')}
                                 </button>
                             </div>
                         </div>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">Full Name</label>
+                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">{t('signupPage.nameLabel')}</label>
                                 <input
                                     type="text"
                                     required
@@ -129,7 +135,7 @@ export default function RegisterPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">Email Address</label>
+                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">{t('signupPage.emailLabel')}</label>
                                 <input
                                     type="email"
                                     required
@@ -141,7 +147,7 @@ export default function RegisterPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">Strong Password</label>
+                                <label className="block text-sm font-medium mb-1 text-zinc-700 dark:text-zinc-300">{t('signupPage.passwordLabel')}</label>
                                 <input
                                     type="password"
                                     required
@@ -150,7 +156,7 @@ export default function RegisterPage() {
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                 />
-                                <p className="text-[10px] text-zinc-500 mt-1">Min 8 chars, A-z, 0-9, and special char (!@#$)</p>
+                                <p className="text-[10px] text-zinc-500 mt-1">{t('signupPage.passwordHint')}</p>
                             </div>
                         </div>
 
@@ -169,16 +175,16 @@ export default function RegisterPage() {
                             disabled={isLoading}
                             className="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center gap-2 mt-2"
                         >
-                            {isLoading ? 'Creating account...' : (
-                                <>Create Account <ArrowRight size={18} /></>
+                            {isLoading ? t('signupPage.loadingButton') : (
+                                <>{t('signupPage.submitButton')} <ArrowRight size={18} /></>
                             )}
                         </button>
                     </form>
 
                     <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
-                        Already have an account?{' '}
+                        {t('signupPage.existingAccount')}{' '}
                         <Link href="/login" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 hover:underline">
-                            Sign in
+                            {t('signupPage.signIn')}
                         </Link>
                     </p>
                 </motion.div>

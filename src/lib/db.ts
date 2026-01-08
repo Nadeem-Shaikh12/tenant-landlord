@@ -128,6 +128,17 @@ interface DB {
     bills: Bill[];
     documents: StoredDocument[];
     messages: Message[];
+    reviews: Review[];
+}
+
+export interface Review {
+    id: string;
+    reviewerId: string; // The user giving the review
+    revieweeId: string; // The user being rated (Tenant or Landlord)
+    rating: number; // 1-5
+    comment: string;
+    stayId: string; // Link to the specific stay
+    createdAt: string;
 }
 
 
@@ -144,7 +155,7 @@ export interface TenantStay {
 
 class DBAdapter {
     private dbPath = path.join(process.cwd(), 'data', 'db.json');
-    private data: DB = { users: [], verificationRequests: [], tenantStays: [], history: [], notifications: [], properties: [], bills: [], documents: [], messages: [] };
+    private data: DB = { users: [], verificationRequests: [], tenantStays: [], history: [], notifications: [], properties: [], bills: [], documents: [], messages: [], reviews: [] };
 
     constructor() {
         this.init();
@@ -174,11 +185,12 @@ class DBAdapter {
                 properties: parsed.properties || [],
                 bills: parsed.bills || [],
                 documents: parsed.documents || [],
-                messages: parsed.messages || []
+                messages: parsed.messages || [],
+                reviews: parsed.reviews || []
             };
         } catch (error) {
             // If file is corrupted or empty, initialize with empty data
-            this.data = { users: [], verificationRequests: [], tenantStays: [], history: [], notifications: [], properties: [], bills: [], documents: [], messages: [] };
+            this.data = { users: [], verificationRequests: [], tenantStays: [], history: [], notifications: [], properties: [], bills: [], documents: [], messages: [], reviews: [] };
         }
     }
 
@@ -548,6 +560,22 @@ class DBAdapter {
             }
         });
         return counts;
+    }
+
+    // REVIEW METHODS
+    addReview(review: Review) {
+        this.readDB();
+        this.data.reviews.push(review);
+        this.writeDB();
+        return review;
+    }
+
+    getReviews(userId: string) {
+        this.readDB();
+        // Get reviews FOR a specific user (where they are the reviewee)
+        return this.data.reviews
+            .filter(r => r.revieweeId === userId)
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
 }
 

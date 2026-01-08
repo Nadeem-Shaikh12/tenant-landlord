@@ -10,12 +10,10 @@ export interface User {
     name: string;
     email: string;
     role: Role;
-    mobile?: string;
+    avatar?: string;
     tenantProfile?: {
         mobile?: string;
-        city?: string;
-        state?: string;
-        aadhaarNumber?: string;
+        [key: string]: any;
     };
 }
 
@@ -36,19 +34,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
-        checkUser();
+        checkAuth();
     }, []);
 
-    const checkUser = async () => {
+    const checkAuth = async () => {
         try {
             const res = await fetch('/api/auth/me');
-            const data = await res.json();
-            if (data.user) {
+            if (res.ok) {
+                const data = await res.json();
                 setUser(data.user);
             } else {
                 setUser(null);
             }
-        } catch (e) {
+        } catch (error) {
+            console.error('Auth check failed', error);
             setUser(null);
         } finally {
             setIsLoading(false);
@@ -56,39 +55,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const login = async (formData: any) => {
-        const res = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error);
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
 
-        setUser(data.user);
-        router.push(`/${data.user.role}/dashboard`);
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Login failed');
+            }
+
+            setUser(data.user);
+            router.push(`/${data.user.role}/dashboard`);
+        } catch (error: any) {
+            console.error('Login error', error);
+            throw error;
+        }
     };
 
     const register = async (formData: any) => {
-        const res = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error);
+        try {
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
 
-        setUser(data.user);
-        router.push(`/${data.user.role}/dashboard`);
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Registration failed');
+            }
+
+            setUser(data.user);
+            router.push(`/${data.user.role}/dashboard`);
+        } catch (error: any) {
+            console.error('Registration error', error);
+            throw error;
+        }
     };
 
     const logout = async () => {
-        await fetch('/api/auth/logout', { method: 'POST' });
-        setUser(null);
-        router.push('/');
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            setUser(null);
+            router.push('/login');
+        } catch (error) {
+            console.error('Logout error', error);
+        }
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, isLoading, refreshUser: checkUser }}>
+        <AuthContext.Provider value={{ user, login, register, logout, refreshUser: checkAuth, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

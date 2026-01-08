@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Building2, Menu, X, ChevronDown, User, LogOut, Settings, Bell, Search, LayoutDashboard, Home, Users, FileText, PieChart, CreditCard, MessageSquare, Wrench } from 'lucide-react';
 import { useAuth, Role } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
@@ -12,6 +14,7 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
     const { user, logout } = useAuth();
+    const { t } = useLanguage();
     const pathname = usePathname();
     const router = useRouter();
 
@@ -70,15 +73,15 @@ export default function Navbar() {
     };
 
     const navLinks = [
-        { label: 'Home', href: '/#home' },
-        { label: 'Features', href: '/#features' },
-        { label: 'How It Works', href: '/#how-it-works' },
-        { label: 'Reviews', href: '/#reviews' },
-        { label: 'Contact', href: '/#contact' },
+        { label: t('nav.home'), href: '/#home' },
+        { label: t('nav.features'), href: '/#features' },
+        { label: t('nav.howItWorks'), href: '/#how-it-works' },
+        { label: t('nav.reviews'), href: '/#reviews' },
+        { label: t('nav.contact'), href: '/#contact' },
     ];
 
     const tenantLinks = [
-        { label: 'Dashboard', href: '/tenant/dashboard', icon: LayoutDashboard },
+        { label: t('nav.dashboard'), href: '/tenant/dashboard', icon: LayoutDashboard },
         { label: 'Properties', href: '/tenant/properties', icon: Home },
         { label: 'Applications', href: '/tenant/applications', icon: FileText },
         { label: 'My Payments', href: '/tenant/payments', icon: CreditCard },
@@ -87,7 +90,7 @@ export default function Navbar() {
     ];
 
     const landlordLinks = [
-        { label: 'Dashboard', href: '/landlord/dashboard', icon: LayoutDashboard },
+        { label: t('nav.dashboard'), href: '/landlord/dashboard', icon: LayoutDashboard },
         { label: 'My Properties', href: '/landlord/properties', icon: Building2 },
         { label: 'Tenants', href: '/landlord/tenants', icon: Users },
         { label: 'Applications', href: '/landlord/applications', icon: FileText },
@@ -152,6 +155,7 @@ export default function Navbar() {
 
                     {/* Auth Buttons */}
                     <div className="hidden md:flex items-center gap-4">
+                        <LanguageSwitcher />
                         {user ? (
                             <div className="relative">
                                 <button
@@ -190,13 +194,13 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <Link href="/login" className="text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">
-                                    Log in
+                                    {t('nav.login')}
                                 </Link>
                                 <Link
                                     href="/register"
                                     className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-full transition-colors shadow-lg shadow-indigo-500/20"
                                 >
-                                    Sign Up
+                                    {t('nav.signup')}
                                 </Link>
                             </>
                         )}

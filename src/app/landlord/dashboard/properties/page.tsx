@@ -11,11 +11,9 @@ import {
     Building2,
     ChevronRight,
     Layers,
-    TrendingUp,
     LayoutGrid,
     Search,
-    X,
-    BadgeCheck
+    X
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -45,24 +43,31 @@ function PropertiesContent() {
             window.location.href = '/login';
             return;
         }
-        if (user) fetchProperties();
+
+        if (user) {
+            fetchProperties(user.id);
+        }
     }, [user, isLoading]);
+
+    const fetchProperties = async (userId: string) => {
+        try {
+            const res = await fetch(`/api/landlord/properties?landlordId=${userId}`);
+            const data = await res.json();
+            if (data.properties) {
+                setProperties(data.properties);
+            }
+        } catch (error) {
+            console.error("Error fetching properties:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (searchParams.get('new') === 'true') {
             setIsAdding(true);
         }
     }, [searchParams]);
-
-    const fetchProperties = async () => {
-        try {
-            const res = await fetch(`/api/landlord/properties?landlordId=${user?.id}`);
-            const data = await res.json();
-            if (data.properties) setProperties(data.properties);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const filteredProperties = useMemo(() => {
         return properties.filter(p =>
@@ -75,31 +80,48 @@ function PropertiesContent() {
         if (!confirm('Are you sure you want to delete this property? This will remove all associated data.')) return;
 
         try {
-            const res = await fetch(`/api/landlord/properties?id=${id}`, { method: 'DELETE' });
+            const res = await fetch(`/api/landlord/properties?id=${id}`, {
+                method: 'DELETE'
+            });
+
             if (res.ok) {
-                fetchProperties();
+                setProperties(prev => prev.filter(p => p.id !== id));
             } else {
                 alert('Failed to delete property');
             }
         } catch (e) {
-            alert('An error occurred');
+            console.error(e);
+            alert('Failed to delete property');
         }
     };
 
     const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!user) return;
+
         try {
             const res = await fetch('/api/landlord/properties', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...newProp, landlordId: user?.id })
+                body: JSON.stringify({
+                    ...newProp,
+                    landlordId: user.id,
+                    units: Number(newProp.units),
+                    monthlyRent: Number(newProp.monthlyRent),
+                })
             });
-            if (res.ok) {
+
+            const data = await res.json();
+
+            if (res.ok && data.property) {
+                setProperties(prev => [...prev, data.property]);
                 setIsAdding(false);
-                fetchProperties();
                 setNewProp({ name: '', address: '', units: '', monthlyRent: '', type: 'Apartment' });
+            } else {
+                alert('Failed to add property');
             }
         } catch (e) {
+            console.error(e);
             alert('Failed to add property');
         }
     };
@@ -228,7 +250,7 @@ function PropertiesContent() {
                                         <X size={14} />
                                     </button>
                                     <div className="bg-zinc-100 text-zinc-400 px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em]">
-                                        ID: {prop.id.slice(-6)}
+                                        ID: {prop.id.slice(0, 8)}...
                                     </div>
                                 </div>
                             </div>

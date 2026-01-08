@@ -18,12 +18,17 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import ReviewModal from '@/components/ReviewModal';
 
 export default function MyTenantsPage() {
     const { user, isLoading } = useAuth();
     const [tenants, setTenants] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+
+    // Review Modal State
+    const [isReviewOpen, setIsReviewOpen] = useState(false);
+    const [reviewData, setReviewData] = useState<{ stayId: string, tenantId: string, tenantName: string } | null>(null);
 
     useEffect(() => {
         if (!isLoading && !user) {
@@ -43,20 +48,54 @@ export default function MyTenantsPage() {
         }
     };
 
-    const handleEndStay = async (stayId: string) => {
+    const handleEndStay = async (stay: any) => {
         if (!confirm('Are you sure you want to end this resident\'s stay? This action is permanent.')) return;
 
         try {
-            const res = await fetch(`/api/landlord/tenants/end?stayId=${stayId}`, { method: 'POST' });
+            const res = await fetch(`/api/landlord/tenants/end?stayId=${stay.id}`, { method: 'POST' });
             if (res.ok) {
-                alert('Stay ended successfully');
-                fetchTenants();
+                // Instead of simple alert, trigger review flow
+                setReviewData({
+                    stayId: stay.id,
+                    tenantId: stay.tenantId,
+                    tenantName: stay.tenantName
+                });
+                setIsReviewOpen(true);
+                fetchTenants(); // Refresh list to remove the tenant
             } else {
                 const data = await res.json();
                 alert(data.error || 'Failed to end stay');
             }
         } catch (e) {
             alert('An error occurred');
+        }
+    };
+
+    const handleReviewSubmit = async (rating: number, comment: string) => {
+        if (!reviewData || !user) return;
+
+        try {
+            const res = await fetch('/api/reviews', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    reviewerId: user.id,
+                    revieweeId: reviewData.tenantId, // Rating the tenant
+                    stayId: reviewData.stayId,
+                    rating,
+                    comment
+                })
+            });
+
+            if (res.ok) {
+                setIsReviewOpen(false);
+                setReviewData(null);
+                // Optional: Show success toast
+            } else {
+                alert('Failed to submit review');
+            }
+        } catch (e) {
+            alert('Error submitting review');
         }
     };
 
@@ -74,6 +113,16 @@ export default function MyTenantsPage() {
 
     return (
         <div className="p-8 max-w-7xl mx-auto space-y-10">
+            {/* Review Modal */}
+            {reviewData && (
+                <ReviewModal
+                    isOpen={isReviewOpen}
+                    onClose={() => setIsReviewOpen(false)}
+                    onSubmit={handleReviewSubmit}
+                    tenantName={reviewData.tenantName}
+                />
+            )}
+
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight text-zinc-900 flex items-center gap-3">
@@ -168,7 +217,7 @@ export default function MyTenantsPage() {
                             </button>
 
                             <button
-                                onClick={() => handleEndStay(stay.id)}
+                                onClick={() => handleEndStay(stay)}
                                 className="w-full mt-2 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white p-3 rounded-lg flex items-center justify-center gap-2 font-bold text-[10px] uppercase tracking-wider transition-all"
                             >
                                 End Stay & Finalize
