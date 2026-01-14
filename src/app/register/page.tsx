@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth, Role } from '@/context/AuthContext';
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -10,6 +11,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function RegisterPage() {
     const { register } = useAuth();
+    useRedirectIfAuthenticated();
     const { t } = useLanguage();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

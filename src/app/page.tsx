@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, UserCheck, Zap, Star, TrendingUp, Users, Building2, CheckCircle2, HelpCircle, Mail, Play, Smartphone, Clock, Linkedin, Instagram, Twitter } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -12,6 +13,7 @@ const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
 export default function Home() {
   const { user } = useAuth();
+  useRedirectIfAuthenticated();
   const { t } = useLanguage();
 
   const fadeInUp = {

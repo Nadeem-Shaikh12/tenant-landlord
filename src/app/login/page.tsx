@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth, Role } from '@/context/AuthContext';
+import { useRedirectIfAuthenticated } from '@/hooks/useRedirectIfAuthenticated';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -10,6 +11,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function LoginPage() {
     const { login } = useAuth();
+    useRedirectIfAuthenticated();
     const { t } = useLanguage();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
