@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         });
 
         // Create JWT
-        const token = await new SignJWT({ userId: newUser.id, role: newUser.role, name: newUser.name })
+        const token = await new SignJWT({ userId: newUser.id, role: newUser.role, name: newUser.name, email: newUser.email })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('30d')
             .sign(JWT_SECRET);

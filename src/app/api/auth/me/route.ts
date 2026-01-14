@@ -16,7 +16,20 @@ export async function GET() {
     try {
         const { payload } = await jwtVerify(token, JWT_SECRET);
         const userId = payload.userId as string;
-        const user = await db.findUserById(userId);
+        let user = await db.findUserById(userId);
+
+        // If user is missing (due to server restart wiping memory), but token is valid:
+        // Automatically RE-CREATE the user from the token details to keep them logged in.
+        if (!user && payload.email) {
+            console.log("Restoring user session from token:", userId);
+            user = await db.addUser({
+                id: userId,
+                name: payload.name as string,
+                email: payload.email as string,
+                role: payload.role as 'landlord' | 'tenant',
+                passwordHash: 'restored_session_placeholder', // Dummy hash, won't allow pw login until reset but keeps session alive
+            });
+        }
 
         if (!user) {
             const response = NextResponse.json({ user: null });
