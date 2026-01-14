@@ -10,7 +10,9 @@ export type { User, Property, VerificationRequest, TenantHistory, Notification, 
 
 // CONFIGURATION
 // Check if we assume production or if MONGODB_URI is present
-const USE_MONGO = process.env.NODE_ENV === 'production';
+const MONGODB_URI = process.env.MONGODB_URI;
+// Only use Mongo if we are in production AND have a URI
+const USE_MONGO = process.env.NODE_ENV === 'production' && !!MONGODB_URI;
 const DB_PATH = path.join(process.cwd(), 'data', 'db.json');
 
 // --- JSON IMPLEMENTATION ---

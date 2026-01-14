@@ -8,6 +8,32 @@
       "role": "landlord",
       "mobile": "",
       "aadhaar": ""
+    },
+    {
+      "id": "ifCEwtDCDGmWG3xjryXjt",
+      "name": "Rohit Sharma",
+      "email": "rohitsharma@gmail.com",
+      "passwordHash": "$2b$10$aGDA5QwqMiQOI9bGk9anlOiHX3FqSsDOkTmcU5e.1TTu9XjUXXUA2",
+      "role": "tenant",
+      "mobile": "",
+      "aadhaar": "",
+      "tenantProfile": {
+        "mobile": "9876543210",
+        "city": "Aurangabad",
+        "state": "Maharashtra",
+        "aadhaarNumber": "1234567890",
+        "isProfileComplete": true,
+        "paymentStatus": "PENDING"
+      }
+    },
+    {
+      "id": "XcfQj_roPVgCyKpEu0XrO",
+      "name": "Test User",
+      "email": "tenant_test_543@gmail.com",
+      "passwordHash": "$2b$10$QDZiYUYaX5xnUo51dO9DEuKVLA6VllPKKc4KyubgnOysQ3feVrOQK",
+      "role": "tenant",
+      "mobile": "",
+      "aadhaar": ""
     }
   ],
   "properties": [],
