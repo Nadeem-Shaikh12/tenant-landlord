@@ -46,7 +46,7 @@ export async function POST(req: Request) {
         // Create JWT
         const token = await new SignJWT({ userId: newUser.id, role: newUser.role, name: newUser.name })
             .setProtectedHeader({ alg: 'HS256' })
-            .setExpirationTime('24h')
+            .setExpirationTime('30d')
             .sign(JWT_SECRET);
 
         const response = NextResponse.json({
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
             httpOnly: true,
             path: '/',
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 60 * 60 * 24, // 1 day
+            maxAge: 60 * 60 * 24 * 30, // 30 days
         });
 
         return response;
