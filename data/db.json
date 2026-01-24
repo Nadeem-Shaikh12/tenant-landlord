@@ -34,15 +34,334 @@
       "role": "tenant",
       "mobile": "",
       "aadhaar": ""
+    },
+    {
+      "id": "cYMGn50Zv3iB6KR_v8R7y",
+      "name": "Harsh Tambatkar",
+      "email": "harshtambatkar24@gmail.com",
+      "passwordHash": "$2b$10$YG1.Gv/Ig3EjWQUIX7SmQ.cjU3nunJubdh95Ro2y37x6IxcOXcNZe",
+      "role": "landlord",
+      "mobile": "",
+      "aadhaar": ""
+    },
+    {
+      "id": "NyejtA5hpFcWtMEjVREpk",
+      "name": "Kshitij Pingale",
+      "email": "kshitijpingale@gmail.com",
+      "passwordHash": "$2b$10$RUC55xXO37/ITCtfCAZakeg9A.hMaV2hsb37tex9mUsdsdjWQAbfG",
+      "role": "tenant",
+      "mobile": "",
+      "aadhaar": "",
+      "tenantProfile": {
+        "mobile": "9876543210",
+        "city": "Aurangabad",
+        "state": "Maharashtra",
+        "aadhaarNumber": "1029384756",
+        "isProfileComplete": true,
+        "paymentStatus": "PENDING"
+      }
     }
   ],
-  "properties": [],
-  "verificationRequests": [],
-  "history": [],
-  "notifications": [],
-  "bills": [],
-  "documents": [],
-  "messages": [],
-  "reviews": [],
-  "tenantStays": []
+  "properties": [
+    {
+      "id": "clomzuo8y",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "name": "Harsh Tambatkar",
+      "address": "Aurangabad",
+      "units": 20,
+      "occupiedUnits": 2,
+      "type": "Apartment",
+      "monthlyRent": 1500,
+      "createdAt": "2026-01-24T07:00:41.611Z"
+    }
+  ],
+  "verificationRequests": [
+    {
+      "id": "08b5026d-773f-42d5-b719-9181dbda7ed2",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "fullName": "Kshitij Pingale",
+      "mobile": "9876543210",
+      "idProofType": "Aadhaar",
+      "idProofNumber": "1234567890",
+      "city": "Aurangabad",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "status": "approved",
+      "paymentStatus": "paid",
+      "paymentAmount": 116.82,
+      "transactionId": "TXN_U3FYJXKQS",
+      "submittedAt": "2026-01-24T07:04:14.690Z",
+      "updatedAt": "2026-01-24T07:04:44.826Z",
+      "verifiedAt": "2026-01-24T07:04:44.826Z"
+    },
+    {
+      "id": "c7b44eaf-284d-47d6-ae89-ca24c4a0ed6c",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "fullName": "Kshitij Pingale",
+      "mobile": "9876543210",
+      "idProofType": "Aadhaar",
+      "idProofNumber": "1029384756",
+      "city": "Aurangabad",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "status": "approved",
+      "paymentStatus": "paid",
+      "paymentAmount": 116.82,
+      "transactionId": "TXN_B5LIBHFA4",
+      "submittedAt": "2026-01-24T08:10:35.455Z",
+      "updatedAt": "2026-01-24T08:10:56.715Z",
+      "verifiedAt": "2026-01-24T08:10:56.715Z"
+    }
+  ],
+  "history": [
+    {
+      "id": "82991987-e38f-41af-8ae8-09149729a03b",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "JOINED",
+      "description": "Tenant verified and joined the property.",
+      "date": "2026-01-24T07:04:44.830Z",
+      "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
+    },
+    {
+      "id": "iv0kkrghd",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "PAYMENT",
+      "date": "2026-01-24T07:07:35.234Z",
+      "description": "Paid OTHER bill",
+      "amount": 6000,
+      "createdBy": "NyejtA5hpFcWtMEjVREpk"
+    },
+    {
+      "id": "ob-3acuzHBy_A1nVNbHUb",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "PAYMENT",
+      "description": "Paid OTHER bill of 6000",
+      "amount": 6000,
+      "date": "2026-01-24T07:07:35.240Z",
+      "createdBy": "NyejtA5hpFcWtMEjVREpk"
+    },
+    {
+      "id": "hfv7hdpnv",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "MOVE_OUT",
+      "description": "Resident moved out from Harsh Tambatkar. Stay finalized.",
+      "date": "2026-01-24T08:07:42.698Z",
+      "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
+    },
+    {
+      "id": "8dd0761a-3feb-4a32-b1b6-14c41a0a2090",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "JOINED",
+      "description": "Tenant verified and joined the property.",
+      "date": "2026-01-24T08:10:56.720Z",
+      "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
+    },
+    {
+      "id": "5a8cveopo",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "MOVE_OUT",
+      "description": "Resident moved out from Harsh Tambatkar. Stay finalized.",
+      "date": "2026-01-24T08:12:03.159Z",
+      "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "bc7e737b-52f5-4d35-a49f-0bbf73212ba8",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "Application Approved!",
+      "message": "Your verification request has been approved by the landlord. Welcome home!",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T07:04:44.858Z"
+    },
+    {
+      "id": "538db310-f2c2-45d4-b925-a175c113efe5",
+      "userId": "cYMGn50Zv3iB6KR_v8R7y",
+      "type": "REMARK_ADDED",
+      "title": "New Message",
+      "message": "You received a new message from Kshitij Pingale",
+      "role": "landlord",
+      "createdAt": "2026-01-24T07:05:37.510Z",
+      "isRead": false
+    },
+    {
+      "id": "16fca15d-0c58-4a86-a6aa-8507df030c4a",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "REMARK_ADDED",
+      "title": "New Message",
+      "message": "You received a new message from Harsh Tambatkar",
+      "role": "tenant",
+      "createdAt": "2026-01-24T07:05:50.217Z",
+      "isRead": false
+    },
+    {
+      "id": "39e45cbc-39ac-4be7-895f-2f9ef29e687d",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "New Bill Received",
+      "message": "You have a new bill for OTHER ($6000) due on 1/24/2026.",
+      "type": "NEW_BILL_CYCLE",
+      "isRead": false,
+      "createdAt": "2026-01-24T07:06:48.509Z"
+    },
+    {
+      "id": "CD3cJHtRXTD4sxtpX8lKO",
+      "userId": "cYMGn50Zv3iB6KR_v8R7y",
+      "role": "landlord",
+      "title": "Payment Received",
+      "message": "Tenant has paid OTHER bill of $6000.",
+      "type": "PAYMENT_RECEIVED",
+      "isRead": false,
+      "createdAt": "2026-01-24T07:07:35.244Z"
+    },
+    {
+      "id": "1a30c08d-78d2-47ad-ac4e-ca1c2846fc76",
+      "userId": "tenant-1",
+      "role": "tenant",
+      "title": "New Document Added",
+      "message": "Landlord added a new document: Kshitij",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T07:08:56.686Z"
+    },
+    {
+      "id": "kxta8zsoy",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "Stay Terminated",
+      "message": "Your stay has been finalized by the landlord. Thank you for using our platform.",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T08:07:42.696Z"
+    },
+    {
+      "id": "e798e4a4-39dc-403d-bd83-aafd4353b773",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "Application Approved!",
+      "message": "Your verification request has been approved by the landlord. Welcome home!",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T08:10:56.736Z"
+    },
+    {
+      "id": "47a232ac-3f0d-4c35-9768-3f55c05786f1",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "type": "REMARK_ADDED",
+      "title": "New Message",
+      "message": "You received a new message from Harsh Tambatkar",
+      "role": "tenant",
+      "createdAt": "2026-01-24T08:11:29.256Z",
+      "isRead": false
+    },
+    {
+      "id": "swddct4kq",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "Stay Terminated",
+      "message": "Your stay has been finalized by the landlord. Thank you for using our platform.",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T08:12:03.155Z"
+    },
+    {
+      "id": "4b7noceru",
+      "userId": "NyejtA5hpFcWtMEjVREpk",
+      "role": "tenant",
+      "title": "New Rating Received",
+      "message": "You received a 5-star rating.",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T08:12:30.113Z"
+    }
+  ],
+  "bills": [
+    {
+      "id": "57138636-58b5-4013-864e-502ec1bd569a",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "stayId": "d65a82b9-0b0f-4b49-bd3d-27562d85722a",
+      "amount": 6000,
+      "type": "OTHER",
+      "month": "Jan",
+      "dueDate": "2026-01-24",
+      "status": "PAID",
+      "paidAt": "2026-01-24T07:07:35.234Z"
+    }
+  ],
+  "documents": [
+    {
+      "id": "e0045e0a-af94-4c59-94d8-89647380c2f7",
+      "tenantId": "tenant-1",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "category": "ID_PROOF",
+      "name": "Kshitij",
+      "url": "#",
+      "version": 1,
+      "createdAt": "2026-01-24T07:08:56.681Z",
+      "description": ""
+    }
+  ],
+  "messages": [
+    {
+      "id": "0b7aec0b-04ad-4668-8bf8-499b97f54178",
+      "senderId": "NyejtA5hpFcWtMEjVREpk",
+      "receiverId": "cYMGn50Zv3iB6KR_v8R7y",
+      "content": "Hello Harsh ji kya kar rha ho4",
+      "timestamp": "2026-01-24T07:05:37.503Z",
+      "isRead": true,
+      "type": "text"
+    },
+    {
+      "id": "38129e8e-1302-479e-9ad1-ef7862ad9e27",
+      "senderId": "cYMGn50Zv3iB6KR_v8R7y",
+      "receiverId": "NyejtA5hpFcWtMEjVREpk",
+      "content": "Thank you! Payment has been received.",
+      "timestamp": "2026-01-24T07:05:50.213Z",
+      "isRead": true,
+      "type": "text"
+    },
+    {
+      "id": "b7100145-3b2f-4dae-b0a3-33cae89eb15c",
+      "senderId": "cYMGn50Zv3iB6KR_v8R7y",
+      "receiverId": "NyejtA5hpFcWtMEjVREpk",
+      "content": "Notice: We have scheduled maintenance for the property.",
+      "timestamp": "2026-01-24T08:11:29.254Z",
+      "isRead": true,
+      "type": "text"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "2qpamrjap",
+      "reviewerId": "cYMGn50Zv3iB6KR_v8R7y",
+      "revieweeId": "NyejtA5hpFcWtMEjVREpk",
+      "rating": 5,
+      "comment": "This was amazeing platform ",
+      "stayId": "9441e37d-a70c-486a-8bc6-e4fec1ff29ca",
+      "createdAt": "2026-01-24T08:12:30.104Z"
+    }
+  ],
+  "tenantStays": [
+    {
+      "id": "d65a82b9-0b0f-4b49-bd3d-27562d85722a",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "joinDate": "2026-01-24T07:04:44.837Z",
+      "status": "MOVED_OUT",
+      "moveOutDate": "2026-01-24T08:07:42.694Z"
+    },
+    {
+      "id": "9441e37d-a70c-486a-8bc6-e4fec1ff29ca",
+      "tenantId": "NyejtA5hpFcWtMEjVREpk",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "joinDate": "2026-01-24T08:10:56.724Z",
+      "status": "MOVED_OUT",
+      "moveOutDate": "2026-01-24T08:12:03.151Z"
+    }
+  ]
 }

@@ -72,8 +72,8 @@ export default function ReviewModal({ isOpen, onClose, onSubmit, tenantName }: R
                                             <Star
                                                 size={32}
                                                 className={`transition-colors ${star <= (hoveredRating || rating)
-                                                        ? 'fill-amber-400 text-amber-400'
-                                                        : 'fill-transparent text-zinc-300 dark:text-zinc-600'
+                                                    ? 'fill-amber-400 text-amber-400'
+                                                    : 'fill-transparent text-zinc-300 dark:text-zinc-600'
                                                     }`}
                                             />
                                         </button>
@@ -97,7 +97,7 @@ export default function ReviewModal({ isOpen, onClose, onSubmit, tenantName }: R
                                     value={comment}
                                     onChange={(e) => setComment(e.target.value)}
                                     placeholder="Share details about payment timeliness, property care, etc."
-                                    className="w-full h-32 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-shadow"
+                                    className="w-full h-32 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-shadow"
                                 />
                             </div>
 
