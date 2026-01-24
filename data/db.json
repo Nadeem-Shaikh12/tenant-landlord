@@ -60,6 +60,23 @@
         "isProfileComplete": true,
         "paymentStatus": "PENDING"
       }
+    },
+    {
+      "id": "vppxjiwORaZU2JmpCZV86",
+      "name": "Harsh Tambatkar",
+      "email": "harshtambatkar12@gmail.com",
+      "passwordHash": "$2b$10$9VZgd/2FGKLY.59VCnwbw.C64nFCZiT3.VXxakyawQkcsklmmS0Ky",
+      "role": "tenant",
+      "mobile": "",
+      "aadhaar": "",
+      "tenantProfile": {
+        "mobile": "9876543210",
+        "city": "Aurangabad",
+        "state": "Maharashtra",
+        "aadhaarNumber": "1234567890",
+        "isProfileComplete": true,
+        "paymentStatus": "PENDING"
+      }
     }
   ],
   "properties": [
@@ -69,7 +86,7 @@
       "name": "Harsh Tambatkar",
       "address": "Aurangabad",
       "units": 20,
-      "occupiedUnits": 2,
+      "occupiedUnits": 3,
       "type": "Apartment",
       "monthlyRent": 1500,
       "createdAt": "2026-01-24T07:00:41.611Z"
@@ -111,6 +128,24 @@
       "submittedAt": "2026-01-24T08:10:35.455Z",
       "updatedAt": "2026-01-24T08:10:56.715Z",
       "verifiedAt": "2026-01-24T08:10:56.715Z"
+    },
+    {
+      "id": "12430f3a-4798-42f8-adcd-7bae6cdf10b8",
+      "tenantId": "vppxjiwORaZU2JmpCZV86",
+      "fullName": "Harsh Tambatkar",
+      "mobile": "9876543210",
+      "idProofType": "Aadhaar",
+      "idProofNumber": "1234567890",
+      "city": "Aurangabad",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "status": "approved",
+      "paymentStatus": "paid",
+      "paymentAmount": 116.82,
+      "transactionId": "TXN_B7UUYTCRB",
+      "submittedAt": "2026-01-24T09:00:05.007Z",
+      "updatedAt": "2026-01-24T09:00:30.928Z",
+      "verifiedAt": "2026-01-24T09:00:30.928Z"
     }
   ],
   "history": [
@@ -162,6 +197,14 @@
       "type": "MOVE_OUT",
       "description": "Resident moved out from Harsh Tambatkar. Stay finalized.",
       "date": "2026-01-24T08:12:03.159Z",
+      "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
+    },
+    {
+      "id": "79b79f50-196e-4586-841d-7d6535258577",
+      "tenantId": "vppxjiwORaZU2JmpCZV86",
+      "type": "JOINED",
+      "description": "Tenant verified and joined the property.",
+      "date": "2026-01-24T09:00:30.933Z",
       "createdBy": "cYMGn50Zv3iB6KR_v8R7y"
     }
   ],
@@ -275,6 +318,26 @@
       "type": "REMARK_ADDED",
       "isRead": false,
       "createdAt": "2026-01-24T08:12:30.113Z"
+    },
+    {
+      "id": "05f27d62-3685-456a-b34d-7da1100962ed",
+      "userId": "vppxjiwORaZU2JmpCZV86",
+      "role": "tenant",
+      "title": "Application Approved!",
+      "message": "Your verification request has been approved by the landlord. Welcome home!",
+      "type": "REMARK_ADDED",
+      "isRead": false,
+      "createdAt": "2026-01-24T09:00:30.947Z"
+    },
+    {
+      "id": "d97df579-85fa-4ff9-8899-33a5aabdfa30",
+      "userId": "vppxjiwORaZU2JmpCZV86",
+      "type": "REMARK_ADDED",
+      "title": "New Message",
+      "message": "You received a new message from Harsh Tambatkar",
+      "role": "tenant",
+      "createdAt": "2026-01-24T09:01:16.685Z",
+      "isRead": false
     }
   ],
   "bills": [
@@ -331,6 +394,15 @@
       "timestamp": "2026-01-24T08:11:29.254Z",
       "isRead": true,
       "type": "text"
+    },
+    {
+      "id": "e983cd3f-50d9-4283-b635-db3ccb793fe9",
+      "senderId": "cYMGn50Zv3iB6KR_v8R7y",
+      "receiverId": "vppxjiwORaZU2JmpCZV86",
+      "content": "Thank you! Payment has been received.",
+      "timestamp": "2026-01-24T09:01:16.655Z",
+      "isRead": false,
+      "type": "text"
     }
   ],
   "reviews": [
@@ -362,6 +434,14 @@
       "joinDate": "2026-01-24T08:10:56.724Z",
       "status": "MOVED_OUT",
       "moveOutDate": "2026-01-24T08:12:03.151Z"
+    },
+    {
+      "id": "b80179ab-f493-4e5d-ad00-5e80e3383a88",
+      "tenantId": "vppxjiwORaZU2JmpCZV86",
+      "landlordId": "cYMGn50Zv3iB6KR_v8R7y",
+      "propertyId": "clomzuo8y",
+      "joinDate": "2026-01-24T09:00:30.937Z",
+      "status": "ACTIVE"
     }
   ]
 }
